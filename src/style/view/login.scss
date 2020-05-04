@@ -1,0 +1,26 @@
+.page-login {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url('../../assets/images/bg-login.jpeg');
+  .login-box {
+    background-color: #fff;
+    padding: 20px 40px;
+    margin-top: -15vh;
+  }
+  .login-form {
+    max-width: 400px;
+    min-width: 300px;
+    background-color: #fff;
+  }
+  .login-form-forgot {
+    float: right;
+  }
+  .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  .login-form-button {
+    width: 100%;
+  }
+}

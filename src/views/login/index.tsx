@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import { Layout, Input, Form, Button, Divider, message, notification } from "antd";
+import { Layout, Input, Form, Button, Checkbox, Divider, message, notification } from "antd";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { withRouter } from "react-router-dom";
+import '../../style/view/login.scss'
 
 type LoginProps = {
-  form: any,
   match: any,
   location: any,
   history: any
@@ -33,9 +33,9 @@ class Login extends Component<LoginProps, LoginState> {
 
   componentDidMount() {
     notification.open({
-      message: '一起学 react 👏👏👏',
+      message: 'react-ant-admin 👏👏👏',
       duration: 1000,
-      description: '{account: admin, password: any}'
+      description: '{username: admin, password: any}'
     })
   }
 
@@ -50,56 +50,68 @@ class Login extends Component<LoginProps, LoginState> {
     })
   }
 
-  handleSubmit = (e: any) => {
-    e.preventDefault();
-    this.props.form.validateFields((valid: boolean, values: any) => {
-      if (!valid) {
-        values.auth = values.username === 'admin' ? 0 : 1;
-        localStorage.setItem('loginInfo', JSON.stringify(values));
-        this.timerId = setTimeout(() => {
-          message.success('登录成功');
-          this.props.history.push('/');
-        }, 2000);
-      }
-    })
+  onFinish = (values: any) => {
+    console.log('Received values of form: ', values);
+    values.auth = values.username === 'admin' ? 0 : 1;
+    localStorage.setItem('loginInfo', JSON.stringify(values));
+    this.timerId = setTimeout(() => {
+      message.success('登录成功');
+      this.props.history.push('/');
+    }, 2000);
   }
 
   render() {
-    const { getFieldDecorator } = this.props.form;
     return (
       <Layout className="page-login fadeIn">
         <div className="login-box">
-          <div className="login-form">
-            <h3>后台管理系统</h3>
-            <Divider />
-            <Form onFinish={this.handleSubmit}>
-              <Form.Item>
+          <h3>中后台管理系统</h3>
+          <Divider />
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={this.onFinish}>
+            <Form.Item
+              name="username"
+              rules={[
                 {
-                  getFieldDecorator('username', {
-                    rules:[{ required: true, message: '请输入用户名'}]
-                  })
-                  (
-                    <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入用户名" />
-                  )
-                }
-              </Form.Item>
-              <Form.Item>
+                  required: true,
+                  message: 'Please input your Username!',
+                },
+              ]}>
+              <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+            </Form.Item>
+            <Form.Item
+              name="password"
+              rules={[
                 {
-                  getFieldDecorator('password', {
-                    rules: [{ required: true, message: '请输入密码' }]
-                  })
-                  (
-                    <Input prefix={<LockOutlined className="site-form-item-icon" />} placeholder="请输入密码" />
-                  )
-                }
+                  required: true,
+                  message: 'Please input your Password!',
+                },
+              ]}>
+              <Input
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                type="password"
+                placeholder="Password"
+              />
+            </Form.Item>
+            <Form.Item>
+              <Form.Item name="remember" valuePropName="checked" noStyle>
+                <Checkbox>Remember me</Checkbox>
               </Form.Item>
-              <Form.Item>
-                <Button type="primary" htmlType="submit" loading={this.state.loading}>
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
-          </div>
+              <a className="login-form-forgot" href="">
+                Forgot password
+              </a>
+            </Form.Item>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" className="login-form-button">
+                Log in
+              </Button>
+              Or <a href="">register now!</a>
+            </Form.Item>
+          </Form>
         </div>
       </Layout>
     )

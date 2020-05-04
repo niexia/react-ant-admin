@@ -54,20 +54,21 @@ class PageLayout extends Component {
 
   genMenu = (menuConfig) => {
     const loginInfo = this.getLoginInfo();
+    debugger;
     const { auth } = loginInfo;
     if (!auth) return menuConfig;
     const travel = (node = {}, auth, valid = v => v) => {
       if (node && node.subs && node.subs.length > 0) {
         node.subs = node.subs.concat();
         node.subs = node.subs.filter(item => valid(auth, item));
-        node.subs.forEach(item => travel(item));
+        node.subs.forEach(item => travel(item, auth, valid));
       }
     };
     return menuConfig.filter(item => {
-      const { auth: authList } = item;
-      if (!authList.includes(auth)) return false;
-      item = item.concat();
-      travel(item, auth, (auth, node) => node.auth.includes(auth));
+      const { auth: authList = [] } = item;
+      if (authList.includes(auth)) return false;
+      item = { ...item };
+      travel(item, auth, (auth, node) => Array.isArray(node.auth) ? node.auth.includes(auth) : true);
       return true;
     })
   }

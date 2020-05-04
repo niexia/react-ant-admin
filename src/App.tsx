@@ -15,10 +15,10 @@ function App() {
         <Route exact path="/">
           <Redirect to="/index"></Redirect>
         </Route>
-        <Route component={Layout}></Route>
         <Route path="/login" component={Login}></Route>
         <Route path="/404" component={NotFound}></Route>
         <Route path="/500" component={ServerError}></Route>
+        <Route component={Layout}></Route>
       </Switch>
     </Router>
   )
