@@ -32,7 +32,7 @@ class PageLayout extends Component {
 
   checkLogin = () => {
     const loginInfo = this.getLoginInfo();
-    loginInfo
+    loginInfo && loginInfo.username
       ? this.setState({ menu: this.genMenu(menuConfig) })
       : this.goToLogin();
   }
