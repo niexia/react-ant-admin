@@ -1,12 +1,24 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 import { Menu } from "antd";
 import CustomIcon from "../common/customIcon";
 // import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-class SideMenu extends Component {
-  constructor(props) {
+type SideMenuProps = {
+  location: any,
+  menu: []
+}
+
+type SideMenuState = {
+  openKeys: any[],
+  selectedKeys: any[]
+}
+
+class SideMenu extends Component<SideMenuProps & RouteComponentProps, SideMenuState> {
+  static propTypes = {};
+
+  constructor(props: any) {
     super(props);
     this.state = {
       openKeys: [],
@@ -22,7 +34,7 @@ class SideMenu extends Component {
     });
   }
 
-  componentDidUpdate(preProps, prevState) {
+  componentDidUpdate(preProps: any, prevState: any) {
     const { pathname } = this.props.location;
     const { pathname: prePathname } = preProps.location;
     if (prePathname !== pathname) {
@@ -36,9 +48,9 @@ class SideMenu extends Component {
   /**
    * 获取 path 的数组
    */
-  getOpenKeys = string => {
+  getOpenKeys = (string: any) => {
     if (!string) return [];
-    let strArr = string.split('/').map(p => `/${p}`),
+    let strArr = string.split('/').map((p: string) => `/${p}`),
         newStr = '',
         newArr = [];
     for (let i = 1, j = strArr.length - 1; i < j; i++) {
@@ -51,23 +63,23 @@ class SideMenu extends Component {
   /**
    * 展开一个菜单
    */
-  onOpenChange = (keys = []) => {
-    const { length } = keys;
+  onOpenChange = (openKeys: string[] = []) => {
+    const { length } = openKeys;
     if (length < 2) {
       this.setState({
-        openKeys: keys
+        openKeys: openKeys
       });
       return;
     }
     // 最新展开的菜单
-    const latestOpenKey = keys[length - 1];
+    const latestOpenKey = openKeys[length - 1] as string;
     // 判断是否是嵌套的多级菜单
-    latestOpenKey.includes(keys[0])
-      ? this.setState({ openKeys: keys })
+    latestOpenKey.includes(openKeys[0])
+      ? this.setState({ openKeys: openKeys })
       : this.setState({ openKeys: [latestOpenKey] })
   }
 
-  renderMenuItem = ({ key, icon, title }) => {
+  renderMenuItem = ({ key = '', icon = '', title = '' } = {}) => {
     return (
       <Menu.Item key={key}>
         <Link to={key}>
@@ -78,7 +90,7 @@ class SideMenu extends Component {
     )
   }
 
-  renderSubMenu = ({ key, icon, title, subs }) => {
+  renderSubMenu = ({ key = '', icon = '', title = '', subs = [] } = {}) => {
     const { renderMenuItem, renderSubMenu } = this;
     return (
       <Menu.SubMenu
@@ -90,7 +102,7 @@ class SideMenu extends Component {
           </span>
         }>
         {
-          subs && subs.map(item => item.subs && item.subs.length > 0 ? renderSubMenu(item) : renderMenuItem(item))
+          subs && subs.map((item: any) => item.subs && item.subs.length > 0 ? renderSubMenu(item) : renderMenuItem(item))
         }
       </Menu.SubMenu>
     )
@@ -108,7 +120,7 @@ class SideMenu extends Component {
         onClick={({ key }) => this.setState({ selectedKeys: [key] })}
         onOpenChange={this.onOpenChange}>
         {
-          this.props.menu && this.props.menu.map(item => {
+          this.props.menu && this.props.menu.map((item: any) => {
             const { subs } = item;
             return subs && subs.length > 0 ? renderSubMenu(item) : renderMenuItem(item);
           })

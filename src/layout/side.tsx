@@ -6,7 +6,7 @@ import SideMenu from "../components/sideMenu/sideMenu";
 
 const { Sider } = Layout;
 
-function PageSide(props) {
+function PageSide(props: any) {
   let { menuToggle, menu } = props;
   return (
     <Sider trigger={null} className="app-side" collapsible collapsed={menuToggle}>

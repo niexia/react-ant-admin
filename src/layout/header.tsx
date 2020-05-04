@@ -13,7 +13,7 @@ import {
 
 const { Header } = Layout;
 
-function PageHeader(props) {
+function PageHeader(props: any) {
   const { menuClick, menuToggle, loginOut } = props;
   const menu = (
     <Menu>
@@ -63,7 +63,7 @@ function PageHeader(props) {
           <div className="user-btn btn-item">
             <Dropdown 
               overlay={menu}
-              trigger="['click']">
+              trigger={['click']}>
               <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
             </Dropdown>
           </div>

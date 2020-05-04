@@ -11,10 +11,21 @@ import PageSide from "./side";
 import PageFooter from "./footer";
 import routes from '../routes';
 
+type PageLayoutProps = {
+  history: any,
+  menuClick: any,
+  menuToggle: boolean
+}
+
+type PageLayoutState = {
+  avatarUrl: string,
+  menu: any[],
+}
+
 const { Content } = Layout;
 
-class PageLayout extends Component {
-  constructor(props) {
+class PageLayout extends Component<PageLayoutProps, PageLayoutState> {
+  constructor(props: any) {
     super(props);
     this.state = {
       avatarUrl,
@@ -48,25 +59,25 @@ class PageLayout extends Component {
   }
 
   getLoginInfo = () => {
-    return JSON.parse(localStorage.getItem('loginInfo')) || {};
+    return JSON.parse(localStorage.getItem('loginInfo') as any) || {};
   }
 
-  genMenu = (menuConfig) => {
+  genMenu = (menuConfig: any) => {
     const loginInfo = this.getLoginInfo();
     const { auth } = loginInfo;
     if (!auth) return menuConfig;
-    const travel = (node = {}, auth, valid = v => v) => {
+    const travel = (node: any = {}, auth: number, valid = (auth: number, node: object) => true) => {
       if (node && node.subs && node.subs.length > 0) {
         node.subs = node.subs.concat();
-        node.subs = node.subs.filter(item => valid(auth, item));
-        node.subs.forEach(item => travel(item, auth, valid));
+        node.subs = node.subs.filter((item: any) => valid(auth, item));
+        node.subs.forEach((item: any) => travel(item, auth, valid));
       }
     };
-    return menuConfig.filter(item => {
+    return menuConfig.filter((item: any) => {
       const { auth: authList = [] } = item;
       if (authList.includes(auth)) return false;
       item = { ...item };
-      travel(item, auth, (auth, node) => Array.isArray(node.auth) ? node.auth.includes(auth) : true);
+      travel(item, auth, (auth: number, node: any) => Array.isArray(node.auth) ? node.auth.includes(auth) : true);
       return true;
     })
   }
@@ -78,7 +89,6 @@ class PageLayout extends Component {
     return (
       <Layout className="app">
         <PageSide
-          collapsible
           menuToggle={menuToggle}
           menu={menu}
         />
@@ -119,11 +129,11 @@ class PageLayout extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: any) => ({
   menuToggle: state.menuToggle
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: any) => ({
   menuClick() {
     dispatch(menuToggleAction())
   }
