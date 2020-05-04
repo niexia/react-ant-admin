@@ -3,6 +3,7 @@ import Loadable from 'react-loadable';
 import NProgress from 'nprogress';
 import { Spin } from 'antd';
 import 'nprogress/nprogress.css';
+import '../style/view/loading.scss'
 
 class Loading extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Loading extends Component {
   }
 
   render() {
-    return <div className="loading-page">
+    return <div className="page-loading">
       <Spin />
     </div>
   }

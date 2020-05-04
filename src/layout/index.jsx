@@ -18,7 +18,6 @@ class PageLayout extends Component {
     super(props);
     this.state = {
       avatarUrl,
-      show: true,
       menu: []
     };
   }
@@ -54,7 +53,6 @@ class PageLayout extends Component {
 
   genMenu = (menuConfig) => {
     const loginInfo = this.getLoginInfo();
-    debugger;
     const { auth } = loginInfo;
     if (!auth) return menuConfig;
     const travel = (node = {}, auth, valid = v => v) => {
@@ -76,7 +74,7 @@ class PageLayout extends Component {
   render() {
     const { menuClick, menuToggle } = this.props;
     const { auth } = this.getLoginInfo();
-    const { menu, avatarUrl, show } = this.state;
+    const { menu, avatarUrl } = this.state;
     return (
       <Layout className="app">
         <PageSide
@@ -89,7 +87,6 @@ class PageLayout extends Component {
             menuToggle={menuToggle}
             menuClick={menuClick}
             avatar={avatarUrl}
-            show={show}
             loginOut={this.loginOut}
           />
           <Content className="app-content">
