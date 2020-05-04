@@ -1,0 +1,2 @@
+(this["webpackJsonpreact-ant-admin"]=this["webpackJsonpreact-ant-admin"]||[]).push([[1],{250:function(t,e,n){t.exports=n.p+"static/media/error-404.785f34c4.jpg"},356:function(t,e,n){"use strict";n.r(e);var a=n(0),r=n.n(a),c=n(250),i=n.n(c);e.default=function(){return r.a.createElement("div",{style:{textAlign:"center",marginTop:"100px"}},r.a.createElement("img",{src:i.a,alt:"not found"}))}}}]);
+//# sourceMappingURL=404.743666a7.chunk.js.map

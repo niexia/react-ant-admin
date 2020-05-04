@@ -1,0 +1,2 @@
+(this["webpackJsonpreact-ant-admin"]=this["webpackJsonpreact-ant-admin"]||[]).push([[2],{251:function(e,t,a){e.exports=a.p+"static/media/error-500.4afd5a57.png"},357:function(e,t,a){"use strict";a.r(t);var n=a(0),r=a.n(n),i=a(251),c=a.n(i);t.default=function(){return r.a.createElement("div",{style:{textAlign:"center",marginTop:"100px"}},r.a.createElement("img",{src:c.a,alt:"server error"}))}}}]);
+//# sourceMappingURL=500.aedbe70d.chunk.js.map
