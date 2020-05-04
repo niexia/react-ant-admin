@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Menu } from "antd";
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link, withRouter } from "react-router-dom";
+import { Menu } from "antd";
+import CustomIcon from "../common/customIcon";
+// import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 class SideMenu extends Component {
   constructor(props) {
@@ -60,6 +61,7 @@ class SideMenu extends Component {
     }
     // 最新展开的菜单
     const latestOpenKey = keys[length - 1];
+    // 判断是否是嵌套的多级菜单
     latestOpenKey.includes(keys[0])
       ? this.setState({ openKeys: keys })
       : this.setState({ openKeys: [latestOpenKey] })
@@ -69,7 +71,7 @@ class SideMenu extends Component {
     return (
       <Menu.Item key={key}>
         <Link to={key}>
-          {/* {} */}
+          {icon && <CustomIcon icon={icon}/>}
           <span>{title}</span>
         </Link>
       </Menu.Item>
@@ -83,12 +85,12 @@ class SideMenu extends Component {
         key={key}
         title={
           <span>
-            {/* {} */}
+            {icon && <CustomIcon icon={icon} />}
             <span>{title}</span>
           </span>
         }>
         {
-          subs && subs.map(item => item.subs.length > 0 ? renderMenuItem(item) : renderSubMenu(item))
+          subs && subs.map(item => item.subs && item.subs.length > 0 ? renderSubMenu(item) : renderMenuItem(item))
         }
       </Menu.SubMenu>
     )
@@ -99,7 +101,7 @@ class SideMenu extends Component {
     const { renderMenuItem, renderSubMenu } = this;
     return (
       <Menu
-        mode='line'
+        mode='inline'
         theme='dark'
         openKeys={openKeys}
         selectedKeys={selectedKeys}
@@ -108,7 +110,7 @@ class SideMenu extends Component {
         {
           this.props.menu && this.props.menu.map(item => {
             const { subs } = item;
-            return subs && item.length ? renderSubMenu(item) : renderMenuItem(item);
+            return subs && subs.length > 0 ? renderSubMenu(item) : renderMenuItem(item);
           })
         }
       </Menu>

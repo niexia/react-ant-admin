@@ -1,0 +1,47 @@
+.app {
+  .app-header {
+    padding: 0;
+    background-color: #fff;
+    .side-trigger {
+      font-size: 18px;
+      line-height: 64px;
+      padding: 0 24px;
+      cursor: pointer;
+      transition: color 0.3s;
+      &:hover {
+        color: #1890ff;
+      }
+    }
+    .header-right {
+      display: flex;
+      justify-content: flex-end;
+      .btn-item {
+        margin-right: 24px;
+      }
+    }
+  }
+  .app-side {
+    overflow: auto;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    .side-logo {
+      height: 32px;
+      margin: 16px;
+      text-align: center;
+    }
+    .anticon-github {
+      font-size: 32px;
+      color: #fff;
+    }
+  }
+  .app-content {
+    margin: 24px 16px 0;
+    padding: 24px;
+    min-height: 280px;
+    background-color: #fff;
+  }
+  .app-footer {
+    text-align: center;
+  }
+}

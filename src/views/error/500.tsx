@@ -1,7 +1,7 @@
 import React from 'react';
-import url500 from '@/assets/images/error-500.jpg'
+import url500 from '../../assets/images/error-500.png'
 
-const Page500 = () => {
+function Page500() {
   return (
     <div style={{ textAlign: 'center', marginTop: '100px' }}>
       <img src={url500} alt="server error" />

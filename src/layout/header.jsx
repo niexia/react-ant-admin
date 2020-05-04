@@ -1,17 +1,21 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { Menu, Dropdown, Layout, Avatar, Badge } from "antd";
+import { Menu, Dropdown, Layout, Row, Col, Avatar, Badge } from "antd";
 import {
   UserOutlined,
   SettingOutlined,
-  LogoutOutlined
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  GithubOutlined,
+  NotificationOutlined
 } from '@ant-design/icons';
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header } = Layout;
 
-function Header(props) {
-  const { menuClick, menuToggle, avatar, loginOut } = props;
-  const dropMenu = (
+function PageHeader(props) {
+  const { menuClick, menuToggle, loginOut } = props;
+  const menu = (
     <Menu>
       <Menu.ItemGroup title='用户设置'>
         <Menu.Divider />
@@ -28,10 +32,52 @@ function Header(props) {
       <Menu.Item>
         <span onClick={loginOut}>
           <LogoutOutlined />
-          推出登录
+          退出登录
         </span>
       </Menu.Item>
     </Menu>
   );
+
+  return (
+    <Header className="app-header">
+      <Row>
+        <Col span={12}>
+          {React.createElement(menuToggle ? MenuUnfoldOutlined : MenuFoldOutlined, {
+            className: 'side-trigger',
+            onClick: menuClick,
+          })}
+        </Col>
+        <Col span={12} className="header-right">
+          <div className="github-btn btn-item">
+            <a rel='noopener noreferrer' href='https://github.com/niexias/react-ant-admin' target='_blank'>
+              <GithubOutlined />
+            </a>
+          </div>
+          <div className="notify-btn btn-item">
+            <Badge dot>
+              <a href="/#/index">
+                <NotificationOutlined />
+              </a>
+            </Badge>
+          </div>
+          <div className="user-btn btn-item">
+            <Dropdown 
+              overlay={menu}
+              trigger="['click']">
+              <Avatar style={{ backgroundColor: '#87d068' }} icon={<UserOutlined />} />
+            </Dropdown>
+          </div>
+        </Col>
+      </Row>
+    </Header>
+  )
 }
 
+PageHeader.propTypes = {
+  menuClick: PropTypes.func,
+  avatar: PropTypes.string,
+  menuToggle: PropTypes.bool,
+  loginOut: PropTypes.func
+}
+
+export default React.memo(PageHeader);

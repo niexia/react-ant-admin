@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import PropTypes from "prop-types";
 import { Layout, Input, Form, Button, Divider, message, notification } from "antd";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { withRouter } from "react-router-dom";
 
 type LoginProps = {
-  form: any;
-  history: any;
+  form: any,
+  match: any,
+  location: any,
+  history: any
 };
 
 type LoginState = {
@@ -13,6 +16,12 @@ type LoginState = {
 };
 
 class Login extends Component<LoginProps, LoginState> {
+  static propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+  };
+
   timerId: any = 0;
 
   constructor(props: any) {
@@ -63,7 +72,7 @@ class Login extends Component<LoginProps, LoginState> {
           <div className="login-form">
             <h3>后台管理系统</h3>
             <Divider />
-            <Form onSubmit={this.handleSubmit}>
+            <Form onFinish={this.handleSubmit}>
               <Form.Item>
                 {
                   getFieldDecorator('username', {
@@ -97,4 +106,4 @@ class Login extends Component<LoginProps, LoginState> {
   }
 }
 
-export default withRouter(Form.create()(Login));
+export default withRouter(Login);
