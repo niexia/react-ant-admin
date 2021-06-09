@@ -11,7 +11,7 @@ function PageSide(props: any) {
   return (
     <Sider trigger={null} className="app-side" collapsible collapsed={menuToggle}>
       <div className="side-logo">
-        <a rel='noopener noreferrer' href='https://github.com/niexias' target='_blank'>
+        <a rel='noopener noreferrer' href='https://github.com/niexia' target='_blank'>
           <GithubOutlined />
         </a>
       </div>

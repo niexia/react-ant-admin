@@ -49,7 +49,7 @@ function PageHeader(props: any) {
         </Col>
         <Col span={12} className="header-right">
           <div className="github-btn btn-item">
-            <a rel='noopener noreferrer' href='https://github.com/niexias/react-ant-admin' target='_blank'>
+            <a rel='noopener noreferrer' href='https://github.com/niexia/react-ant-admin' target='_blank'>
               <GithubOutlined />
             </a>
           </div>
