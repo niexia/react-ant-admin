@@ -63,7 +63,7 @@ class SideMenu extends Component<SideMenuProps & RouteComponentProps, SideMenuSt
   /**
    * 展开一个菜单
    */
-  onOpenChange = (openKeys: string[] = []) => {
+  onOpenChange = (openKeys: any[]) => {
     const { length } = openKeys;
     if (length < 2) {
       this.setState({
